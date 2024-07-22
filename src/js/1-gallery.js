@@ -1,7 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { preview } from 'vite';
 
 const images = [
   {
@@ -71,27 +70,29 @@ const images = [
 
 const gallery = document.querySelector('.gallery');
 
-const createGalleryItem = ({ preview, original, description }) => {
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery-link');
+const imageGallary = images
+  .map(
+    image =>
+      `<li class="gallery-item">
+<a class="gallery-link" href="${image.original}">
+    <img
+    class="gallery-image"
+    src="${image.preview}"
+    alt="${image.description}"
+    />
+</a>
+</li>`
+  )
+  .join(``);
 
-  const image = document.createElement('img');
-  image.classList.add('gallery-image');
-  image.src = preview;
-  image.dataset.source = original;
-  image.alt = description;
-  image.width = 360;
-  image.height = 200;
+gallery.insertAdjacentHTML('afterbegin', imageGallary);
+import SimpleLightbox from 'simplelightbox';
 
-  link.appendChild(image);
-  galleryItem.appendChild(link);
-
-  return galleryItem;
-};
-
-const lightbox = new SimpleLightbox('.gallery a', {
+new SimpleLightbox('.gallery a', {
+  overlay: true,
+  overlayOpacity: 0.8,
+  captionDelay: 250,
+  captions: true,
   captionsData: 'alt',
-  caption: function (element) {
-    return element.querySelector('img').alt;
-  },
+  captionClass: 'captions',
 });
