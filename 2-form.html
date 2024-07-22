@@ -7,24 +7,27 @@
     <title>Page 3</title>
     <script type="module" crossorigin src="/goit-js-hm-09/commonHelpers2.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hm-09/assets/modulepreload-polyfill-3cfb730f.js">
-    <link rel="modulepreload" crossorigin href="/goit-js-hm-09/assets/vendor-011ade53.js">
-    <link rel="stylesheet" href="/goit-js-hm-09/assets/vendor-a088063d.css">
   </head>
   <body>
+    <body class="body-form">
     <section>
       <a href="./index.html">Go to home</a>
+      <h1>Welcome to page 3</h1>
+
       <form class="feedback-form" autocomplete="off">
-        <label>
-          Email
-          <input type="email" name="email" placeholder="Type area" autofocus />
+        <label class="form-label">
+            Email
+            <input class="input-email" type="email" name="email" autofocus />
         </label>
-        <label>
-          Message
-          <textarea name="message" rows="8" placeholder="Type area"></textarea>
+        <label class="form-label">
+            Message
+            <textarea class="textarea" name="message" rows="8"></textarea>
         </label>
-        <button type="submit">Submit</button>
-      </form>
+        <button class="button-form" type="submit">Submit</button>
+    </form>
+
     </section>
+
     
   </body>
 </html>
