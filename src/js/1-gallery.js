@@ -86,7 +86,6 @@ const imageGallary = images
   .join(``);
 
 gallery.insertAdjacentHTML('afterbegin', imageGallary);
-import SimpleLightbox from 'simplelightbox';
 
 new SimpleLightbox('.gallery a', {
   overlay: true,
