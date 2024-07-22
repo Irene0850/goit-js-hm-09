@@ -1,48 +1,37 @@
-import validator from 'validator';
-
 const form = document.querySelector('.feedback-form');
+const emailInput = form.elements.email;
+const messageInput = form.elements.message;
 
-let savedfeedbackMessage = JSON.parse(
-  localStorage.getItem('feedback-form-state')
-);
+const STORAGE_KEY = 'feedback-form-state';
 
-function addSavedInformation({ email = '', message = '' }) {
-  {
-    form.message.value = message;
-    form.email.value = email;
+let formData = {
+  email: '',
+  message: '',
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedData = localStorage.getItem(STORAGE_KEY);
+  if (savedData) {
+    formData = JSON.parse(savedData);
+    emailInput.value = formData.email;
+    messageInput.value = formData.message;
   }
-  return;
-}
-if (savedfeedbackMessage !== null) {
-  addSavedInformation(savedfeedbackMessage);
-}
+});
 
-let feedbackMessage = {};
-form.addEventListener('input', inputHandler);
+form.addEventListener('input', event => {
+  formData[event.target.name] = event.target.value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+});
 
-function inputHandler(event) {
-  let email = event.currentTarget.elements[0].value;
-  let message = event.currentTarget.elements[1].value;
-  feedbackMessage.email = email.trim();
-  feedbackMessage.message = message.trim();
-
-  localStorage.setItem('feedback-form-state', JSON.stringify(feedbackMessage));
-}
-
-form.addEventListener('submit', submitHandler);
-
-function submitHandler(event) {
+form.addEventListener('submit', event => {
   event.preventDefault();
-  if (inputCheck(feedbackMessage)) {
-    console.log(feedbackMessage);
-    localStorage.removeItem('feedback-form-state');
-    form.reset();
-  } else {
-    alert('There is no email or message');
+  if (emailInput.value.trim() === '' || messageInput.value.trim() === '') {
+    alert('Fill please all fields');
+    return;
   }
-}
 
-function inputCheck(obj) {
-  const { email = '', message = '' } = obj;
-  return validator.isEmail(email) && !validator.isEmpty(message);
-}
+  console.log(formData);
+  localStorage.removeItem(STORAGE_KEY);
+  formData = { email: '', message: '' };
+  form.reset();
+});
