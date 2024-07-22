@@ -71,7 +71,8 @@ textarea:active {
 }
 
 .feedback-form {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 408px;
   margin: 0 auto;
 }
